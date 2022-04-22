@@ -1,0 +1,53 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for scratch project",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Wunderpuss-2-0/Boilerplate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Wunderpuss-2-0/Boilerplate/issues"
+  },
+  "homepage": "https://github.com/Team-Wunderpuss-2-0/Boilerplate#readme",
+  "dependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/runtime": "^7.17.9",
+    "babel-loader": "^8.2.5",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "css-loader": "^6.7.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "html-webpack-plugin": "^5.5.0",
+    "mongoose": "^6.3.1",
+    "node-fetch": "^3.2.3",
+    "nodemon": "^2.0.15",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "^8.0.1",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
+    "redux": "^4.2.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.17.0"
+  }
+}
