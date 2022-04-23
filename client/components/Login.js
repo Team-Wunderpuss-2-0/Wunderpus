@@ -11,7 +11,7 @@ function Login (props) {
         Axios.post('/api/auth/login',{
             username,
             password
-        })
+        }).then(data => { localStorage.setItem('userId', data.data)})
     }
 
     return(
@@ -32,7 +32,7 @@ function Login (props) {
             <button onClick={login}> Log In</button>
 
             <p> Forgot your <a href=''>password</a>?</p>
-            <p> new user? sign up <a href=''>here</a></p>
+            <p> new user? sign up <a href='http://localhost:8080/signup'>here</a></p>
 
         </div>
     )

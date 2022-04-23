@@ -81,7 +81,7 @@ router.get('/applications/:userId', async (req, res, next) => {
     if (applications.length === 0) {
       return next({
         log: 'No applications found for this user',
-        message: { err: 'Error with getting applications' },
+        message: { err: 'No applications found for this user' },
       });
     }
     const updatedData = applications.map((app) => {

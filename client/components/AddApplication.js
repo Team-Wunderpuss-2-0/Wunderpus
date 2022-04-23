@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import Axios from 'axios';
 import CardApplication from './CardApplication';
+import Axios from 'axios';
 import '../styles.scss';
 
 function AddApplication(){
@@ -9,13 +9,40 @@ function AddApplication(){
     const [Url, setUrl] = useState('')
     const [Company, setCompany] = useState('')
     const [Title, setTitle] = useState('')
+    const List = [];
 
 
     function addList(){
-        console.log(Url,Company,Title)
+        // console.log(Url,Company,Title)
         setApplications([Url,Company,Title])
+        List.push(applications)
         console.log(applications)
+        console.log(list)
     }
+    
+    function CreateCard(){
+        console.log(Title,Url,Company)
+        fetch(`/api/applications/${localStorage.getItem("userId")}`,{
+            method : 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: Title,
+                url: Url,
+                company_name: Company, 
+                progress: 'Application started',
+                priority: 'High',
+            })
+        })
+        .then((data)=> data.json())
+        .then(res => console.log(res))
+    }
+    
+
+
+
+
     
     return(
         <div className="application">
@@ -41,8 +68,8 @@ function AddApplication(){
             onChange={(e)=>setUrl(e.target.value)}
             /> 
             <br></br>
-            <button onClick={addList}> Submit </button>
-            
+            <button onClick={() => CreateCard()}> Submit </button>
+            {List}
         </div>
     )
 

@@ -11,7 +11,7 @@ function Signup (props) {
         Axios.post('/api/auth/signup',{
             username,
             password
-        })
+        }).then(data => {localStorage.setItem('userId', data.data)})
     }
 
     return(
