@@ -25,7 +25,8 @@ function Signup (props) {
             onChange={(e)=>{setUsername(e.target.value)}}
             /> <br></br>
             <input className="signin" 
-            type= 'text' 
+            type= 'password' 
+            // type = 'hidden'
             placeholder = 'Password'
             onChange={(e)=>{setPassword(e.target.value)}}
             /> <br></br>
