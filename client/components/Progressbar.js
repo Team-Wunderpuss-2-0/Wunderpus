@@ -10,31 +10,20 @@ import { current } from "@reduxjs/toolkit";
 function Progressbar(props) { 
     // steps = total steps 
     const [percent, setPercent] = useState(0)
-    const [totalSteps, setTotalSteps] = useState(0)
-    const [currentStep, setCurrentStep] = useState(0)
-
-    // function nextStep(){
-
-    // }
+    const [currentStep, setCurrentStep] = useState(1)
+    //make a string depending on step and display it 
     function nextStep(){
-        // console.log(currentStep,totalSteps)
-        // setTotalSteps(parseInt(totalSteps))
-        console.log(currentStep,totalSteps)
-        setPercent((currentStep/totalSteps)*100)
-        console.log(percent)
-
-        // setPercent()
-        return setCurrentStep(currentStep+1)
+        setCurrentStep(currentStep+1)
+        setPercent((currentStep/6)*100)
     }
   return (
     <div>
       <h1>Progress bar</h1>
       <div className="progress"> Progress Bar</div>
-      <progress max='100' value={`${percent}%`}>
+      <progress max='100' value={`${percent}`}>
       </progress>
       <br></br>
       
-      <input type="number" onChange={(e)=> setTotalSteps(parseInt(e.target.value))}></input> <br></br>
       <button onClick={(e) => nextStep()}> Next step </button>
     </div>
   );

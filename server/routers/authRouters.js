@@ -36,6 +36,7 @@ router.post('/login', (req, res, next) => {
           message: { err: error.message },
         });
       } else {
+        console.log('testing')
         const isMatch = await user.comparePassword(password, next);
         if (isMatch) {
           res.locals.userId = user._id;
