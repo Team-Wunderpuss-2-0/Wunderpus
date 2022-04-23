@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import Axios from 'axios';
 
-function Login (props) {
+function Signup (props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     
-    const login = () =>{
+    const signupUser = () =>{
         console.log(username,password);
-        Axios.post('/api/auth/login',{
+        Axios.post('/api/auth/signup',{
             username,
             password
         })
@@ -16,7 +16,7 @@ function Login (props) {
 
     return(
         <div>
-            <h1 id="Login"> Login!</h1>
+            <h1 id="Signup"> Signup!</h1>
         
             <input 
             className="signin" 
@@ -29,15 +29,13 @@ function Login (props) {
             placeholder = 'Password'
             onChange={(e)=>{setPassword(e.target.value)}}
             /> <br></br>
-            <button onClick={login}> Log In</button>
+            <button onClick={signupUser}> Log In</button>
 
-            <p> Forgot your <a href=''>password</a>?</p>
-            <p> new user? sign up <a href=''>here</a></p>
-
+        
         </div>
     )
 }
 
 
 
-export default Login;
+export default Signup;
