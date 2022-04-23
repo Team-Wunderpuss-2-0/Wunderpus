@@ -7,6 +7,7 @@ const User = require('../models/userModel');
 router.post('/signup', async (req, res, next) => {
   const { username, password } = req.body;
   if (username && password) {
+    console.log(username,password)
     try {
       const userInDb = await User.create({ username, password });
       res.locals.userId = userInDb._id;
@@ -35,6 +36,7 @@ router.post('/login', (req, res, next) => {
           message: { err: error.message },
         });
       } else {
+        console.log('testing')
         const isMatch = await user.comparePassword(password, next);
         if (isMatch) {
           res.locals.userId = user._id;
