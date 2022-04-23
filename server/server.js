@@ -3,7 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config();
-const authRouter = require('./routers/authRouters');
+const authRouters = require('./routers/authRouters');
+const applicationRouters = require('./routers/applicationRouters');
+const remotiveRouters = require('./routers/remotiveRouters');
 
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -16,14 +18,17 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, '../build')));
+
+app.use('/api', applicationRouters);
+app.use('/api/auth', authRouters);
+app.use('/api/jobs', remotiveRouters);
+
 //For all routes access the index.html file
 app.get('*', (req, res) => {
   res
     .status(200)
     .sendFile('index.html', { root: path.join(__dirname, '../build') });
 });
-
-app.use('/api/auth', authRouter);
 
 //Catch all error handler
 app.use((req, res) =>
