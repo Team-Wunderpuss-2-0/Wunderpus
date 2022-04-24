@@ -9,9 +9,7 @@ function Dashboard(){
         fetch(`/api/applications/${localStorage.getItem("userId")}`)
         .then((data)=> data.json())
         .then(res=> setApplications(res))
-   
-  
-}, [])
+   }, [])
 
     function displayApplications(){
         
