@@ -56,6 +56,7 @@ router.post('/applications/:userId', async (req, res, next) => {
       description,
       remotive_id,
       progress,
+      userId,
       priority: convertedPriority,
     });
     res.locals.application = newApplication;
@@ -64,7 +65,7 @@ router.post('/applications/:userId', async (req, res, next) => {
     return next({
       log: 'Error occurred with creating application. Try again',
       message: {
-        err: 'Must have a title, url, company name, progress and priority',
+        err: err.message,
       },
     });
   }
@@ -96,36 +97,36 @@ router.get('/applications/:userId', async (req, res, next) => {
 // makes updates to an existing application
 router.post('/application/:appId', async (req, res, next) => {
   const {
-    title,
-    url,
-    company_name,
-    company_logo,
-    category,
-    job_type,
-    publication_date,
-    candidate_required_location,
-    salary,
-    description,
-    remotive_id,
+    // title,
+    // url,
+    // company_name,
+    // company_logo,
+    // category,
+    // job_type,
+    // publication_date,
+    // candidate_required_location,
+    // salary,
+    // description,
+    // remotive_id,
     progress,
-    priority,
+    // priority,
   } = req.body;
   const { appId } = req.params;
-  const convertedPriority = priorityConverter(priority);
+  // const convertedPriority = priorityConverter(priority);
   const update = {
-    title,
-    url,
-    company_name,
-    company_logo,
-    category,
-    job_type,
-    publication_date,
-    candidate_required_location,
-    salary,
-    description,
-    remotive_id,
+    // title,
+    // url,
+    // company_name,
+    // company_logo,
+    // category,
+    // job_type,
+    // publication_date,
+    // candidate_required_location,
+    // salary,
+    // description,
+    // remotive_id,
     progress,
-    priority: convertedPriority,
+    // priority: convertedPriority,
   };
   Application.findByIdAndUpdate(appId, update, {
     userFindAndModify: false,
