@@ -1,17 +1,22 @@
-import React, {useEffect, useState} from 'react'
-
+import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function Jobs() {
-    const [jobs, setJobs]= useState([])
-    useEffect(() => {
-        fetch('/api/jobs').then(res => res.json()).then(data => setJobs(data))
-    },[])
+  const [jobs, setJobs] = useState([]);
+  useEffect(() => {
+    fetch('/api/jobs')
+      .then((res) => res.json())
+      .then((data) => setJobs(data));
+  }, []);
 
   return (
     <div>
-        {jobs.length!==0 && jobs.map(job => {
-            return (<div className='job-card' key={job.id}>
-                <div id="jobCard">
+      {jobs.length !== 0 &&
+        jobs.map((job) => {
+          return (
+            <div className='job-card' key={job.id}>
+              <div id='jobCard'>
                 {job.company_logo}
                 <br></br>
                 {job.title}
@@ -26,11 +31,15 @@ function Jobs() {
                 <br></br>
                 <br></br>
                 <br></br>
-                </div>
-            </div>)
+                <Link to='/applications' state={{ ...job }}>
+                  <Button variant='outlined'>Start application</Button>
+                </Link>
+              </div>
+            </div>
+          );
         })}
     </div>
-  )
+  );
 }
 
-export default Jobs
+export default Jobs;

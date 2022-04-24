@@ -1,6 +1,3 @@
-
-
-
 /* #Signup {
     display: flex;
     -ms-flex-align: center;
@@ -17,26 +14,49 @@
     display: flex;
     align-items:
 } */
+html {
+  font-family: 'Roboto', sans-serif;
+}
 
 .application {
-    margin: auto;
-    width: 50%;
+  margin: auto;
+  width: 50%;
 }
 
 #companyName {
-   
 }
 
 #title {
-    
 }
 
 #job {
-   
 }
 
 #jobCard {
-    
 }
 
+#cardApplication {
+  display: flex;
+  // background: rgb(241, 237, 237);
+  width: 900px;
+  padding: 10px;
+  margin: 20px auto;
+  justify-content: space-between;
+}
+.cardInfo-wrapper {
+  justify-content: flex-start;
+  flex: 2;
+}
+.cardInfo {
+  margin: 10px;
+}
+.cardInfo-buttons {
+  display: flex;
+  flex: 2;
+  justify-content: flex-end;
+  align-items: flex-end;
 
+  button {
+    margin: 5px;
+  }
+}
