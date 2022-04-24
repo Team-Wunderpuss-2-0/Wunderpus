@@ -13,7 +13,7 @@ const applicationSchema = new Schema({
   candidate_required_location: { type: String },
   salary: { type: String },
   description: { type: String },
-  remotive_id: { type: String },
+  remotive_id: { type: String, unique: false },
   progress: { type: String, required: true },
   priority: { type: Number, required: true },
   userId: {
