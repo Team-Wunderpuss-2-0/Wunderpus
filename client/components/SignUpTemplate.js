@@ -112,7 +112,6 @@ export default function SignUp() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
               //   onClick={login}
-              variant='contained'
             >
               Sign Up
             </Button>
@@ -123,7 +122,7 @@ export default function SignUp() {
                 </Link>
               </Grid> */}
               <Grid item>
-                <Link href='/login' variant='body2'>
+                <Link href='/' variant='body2'>
                   {'Already have an account? Sign In'}
                 </Link>
               </Grid>
