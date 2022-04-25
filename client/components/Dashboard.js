@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CardApplication from './CardApplication';
-import { Paper, Button, Box } from '@mui/material';
+import { Container, Button, Box, Typography, Card } from '@mui/material';
+import Searching from '../assets/searching.png';
 // /applications/:userId
 function Dashboard(){
     const [applications, setApplications] = useState([])
@@ -37,9 +38,44 @@ function Dashboard(){
       .catch((err) => console.log(err));
   };
 
+  const content = () => {
+    if (applications.length > 0) {
+      return applications.map((app) => {
+        return (
+          <CardApplication
+            {...app}
+            key={app._id}
+            deleteApp={deleteApplication}
+            updateApp={updateProgress}
+          />
+        );
+      });
+    } else {
+      return (
+        <Box
+          sx={{
+            justifyContent: 'center',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            mt: 10,
+          }}
+        >
+          <img src={Searching} style={{ maxWidth: '300px' }} />
+          <Typography variant='h6' color='text.secondary'>
+            Looks like you don't have any applications...
+          </Typography>
+        </Box>
+      );
+    }
+  };
+
   return (
-    <Paper elevation={3}>
-      <h1>Welcome to your dashboard!</h1>
+    <Container component='main' maxWidth='lg' sx={{ mt: 5 }}>
+      <Typography variant='h3' color='text.primary' sx={{ mb: 5 }}>
+        Welcome to your dashboard!
+      </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Link to='/jobs' style={{ textDecoration: 'none' }}>
           <Button variant='text' sx={{ mr: 5 }}>
@@ -51,19 +87,8 @@ function Dashboard(){
         </Link>
       </Box>
 
-      {applications.length > 0 &&
-        applications.map((app) => {
-          return (
-            <CardApplication
-              {...app}
-              key={app._id}
-              deleteApp={deleteApplication}
-              updateApp={updateProgress}
-            />
-          );
-        })}
-      {/* <button onClick={() => getApplications()}>Testing</button> */}
-    </Paper>
+      {content()}
+    </Container>
   );
 }
 
