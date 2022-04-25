@@ -6,13 +6,13 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
 import { clientLogin } from '../actions/actions';
 
@@ -42,6 +42,9 @@ function SignIn(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const CLIENT_ID =
+    '901507829953-n3rc11mkp13gpibjrs355njeqpjdcthd.apps.googleusercontent.com';
+
   const login = () => {
     console.log(username, password);
     Axios.post('/api/auth/login', {
@@ -49,6 +52,26 @@ function SignIn(props) {
       password,
     })
       .then((data) => {
+        props.clientLogin();
+        localStorage.setItem('userId', data.data);
+        navigate('/dashboard');
+      })
+      .catch((err) => setError(err));
+  };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    console.log(response.profileObj);
+    const googleId = response.profileObj.googleId;
+    const gmail = response.profileObj.email;
+    console.log(gmail);
+    console.log(googleId);
+    Axios.post('/api/auth/oauth', {
+      gmail,
+      googleId,
+    })
+      .then((data) => {
+        console.log('response google promise chain');
         props.clientLogin();
         localStorage.setItem('userId', data.data);
         navigate('/dashboard');
@@ -119,6 +142,13 @@ function SignIn(props) {
             >
               Sign In
             </Button>
+            <GoogleLogin
+              clientId={CLIENT_ID}
+              buttonText='Login with your Google Account'
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
             <Grid container>
               <Grid item xs>
                 <Link href='#' variant='body2'>
@@ -138,6 +168,7 @@ function SignIn(props) {
     </ThemeProvider>
   );
 }
+
 const mapStateToProps = ({ loginStatus }) => {
   console.log(loginStatus);
   return loginStatus;
