@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+// import jobs from './components/'
 import JobDashboard from './components/JobDashboard.js';
 import Dashboard from './components/Dashboard.js';
 import LoginTemplate from './components/LoginTemplate';
@@ -17,7 +17,7 @@ function App() {
           <Route path='/signup' element={<SignUpTemplate />} />
           <Route path='/applications' element={<ApplicationTemplate />} />
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/jobs' element={<Jobs />} />
+          <Route path='/jobs' element={<JobDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>
