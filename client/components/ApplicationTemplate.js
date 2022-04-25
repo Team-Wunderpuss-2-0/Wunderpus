@@ -38,16 +38,27 @@ const theme = createTheme();
 export default function createApplication(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    title,
-    url,
-    company_name,
-    job_type,
-    publication_date,
-    candidate_required_location,
-    salary,
-    description,
-  } = location.state;
+  let title;
+  let url;
+  let company_name;
+  let job_type = 'remote';
+  let publication_date = new Date().toDateString();
+  let candidate_required_location;
+  let salary;
+  let description;
+  let company_logo;
+
+  if (location.state) {
+    title = location.state.title;
+    url = location.state.url;
+    company_name = location.state.company_name;
+    job_type = location.state.job_type;
+    publication_date = location.state.publication_date;
+    candidate_required_location = location.state.candidate_required_location;
+    salary = location.state.salary;
+    description = location.state.description;
+    company_logo = location.state.company_logo;
+  }
 
   const parseHtml = (description) => {
     var div = document.createElement('div');
@@ -57,16 +68,15 @@ export default function createApplication(props) {
   };
 
   const [formState, setFormState] = useState({
-    title: title !== null ? title : '',
-    url: url !== null ? url : '',
-    company_name: company_name !== null ? company_name : '',
-    job_type: job_type !== null ? job_type : 'remote',
-    publication_date:
-      publication_date !== null ? publication_date : new Date().toDateString(),
-    candidate_required_location:
-      candidate_required_location !== null ? candidate_required_location : '',
-    salary: salary !== null ? salary : '',
-    description: description !== null ? parseHtml(description) : '',
+    title,
+    url,
+    company_name,
+    job_type,
+    publication_date,
+    candidate_required_location,
+    salary,
+    company_logo,
+    description: description !== undefined ? parseHtml(description) : '',
     progress: 'Application started',
     priority: 'High',
   });
@@ -98,22 +108,8 @@ export default function createApplication(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <AppBar
-        position='absolute'
-        color='default'
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      > */}
-      {/* <Toolbar>
-          <Typography variant='h6' color='inherit' noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
-      <Container component='main' maxWidth='sm' sx={{ mb: 4 }}>
+
+      <Container component='main' maxWidth='lg' sx={{ mb: 4 }}>
         <Paper
           variant='outlined'
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
@@ -192,12 +188,12 @@ export default function createApplication(props) {
                   <Grid item xs={12}>
                     <TextField
                       id='location'
-                      name='location'
+                      name='candidate_required_location'
                       label='Location'
                       fullWidth
                       autoComplete='location'
                       variant='standard'
-                      value={formState['location']}
+                      value={formState['candidate_required_location']}
                       onChange={(e) => handleFormStateChange(e)}
                     />
                   </Grid>
@@ -283,6 +279,19 @@ export default function createApplication(props) {
                       autoComplete='given-name'
                       variant='standard'
                       value={formState['url']}
+                      onChange={(e) => handleFormStateChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      id='company_logo'
+                      name='company_logo'
+                      label='Company Logo (url)'
+                      fullWidth
+                      autoComplete='given-name'
+                      variant='standard'
+                      value={formState['company_logo']}
                       onChange={(e) => handleFormStateChange(e)}
                     />
                   </Grid>

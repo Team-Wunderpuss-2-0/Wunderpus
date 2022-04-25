@@ -2,16 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import ProgressBar from './Progressbar.js';
 import { progressTypes } from '../constants/formFields.js';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
+import {
+  Grid,
+  TextField,
+  MenuItem,
+  Avatar,
+  Typography,
+  CardContent,
+  CardActions,
+} from '@mui/material';
+
+// import TextField from '@mui/material/TextField';
+// import MenuItem from '@mui/material/MenuItem';
 
 import { Container, Box, Button, Card } from '@mui/material';
 
 function CardApplication(props) {
   const navigate = useNavigate();
+  const [showFullDesc, toggleShowFullDesc] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [progress, setProgress] = useState(props.progress);
+  const {
+    title,
+    url,
+    company_name,
+    company_logo,
+    job_type,
+    publication_date,
+    candidate_required_location,
+    salary,
+    description,
+    priority,
+  } = props;
+  console.log(props);
   const appId = props._id;
   const remove = () => {
     props.deleteApp(appId);
@@ -26,6 +49,29 @@ function CardApplication(props) {
     props.updateApp(appId, { progress });
     setIsEditing(false);
   };
+  const DESC_LIMIT = 250;
+
+  const toggleDescription = (desc) => {
+    if (desc.length > DESC_LIMIT) {
+      if (showFullDesc) {
+        return (
+          <>
+            {desc}
+            <Button onClick={() => toggleShowFullDesc(false)}>Show Less</Button>
+          </>
+        );
+      } else {
+        return (
+          <>
+            {desc.slice(0, DESC_LIMIT)}...{' '}
+            <Button onClick={toggleShowFullDesc}>Show More</Button>
+          </>
+        );
+      }
+    } else {
+      return desc;
+    }
+  };
 
   const editComponent = () => {
     if (!isEditing)
@@ -36,7 +82,7 @@ function CardApplication(props) {
       );
     else
       return (
-        <Grid container>
+        <Grid container mt={3}>
           <Grid item xs={12}>
             <TextField
               required
@@ -70,50 +116,85 @@ function CardApplication(props) {
   };
 
   return (
-    <Card variant='outlined' id='cardApplication'>
-      <div className='cardInfo-wrapper'>
+    <Card variant='outlined' sx={{ mt: 3, mb: 3 }}>
+      <CardContent>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ bgcolor: 'navy', mr: '10px' }} src={company_logo} />
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography className='job-title' variant='h6'>
+                <a
+                  href={url}
+                  target='_blank'
+                  style={{ textDecoration: 'none', color: '#212121' }}
+                >
+                  {title}
+                </a>
+              </Typography>
+              <Typography variant='body2' color='text.secondary'>
+                {company_name} {salary}
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              justifyContent: 'start',
+            }}
+          >
+            <Typography
+              align='right'
+              style={{
+                color:
+                  priority === 'High'
+                    ? '#8bc34a'
+                    : priority === 'Med'
+                    ? '#cddc39'
+                    : '#009688',
+              }}
+            >
+              {priority.toUpperCase()}
+            </Typography>
+            <Typography align='right' color='text.secondary' variant='body2'>
+              {new Date(publication_date).toDateString()}
+            </Typography>
+          </Box>
+        </Box>
         <div className='cardInfo'>
-          <strong>Company: </strong>
-          {props.company_name}
+          <strong>Location: </strong>
+          {candidate_required_location}
         </div>
-        <div className='cardInfo'>
-          <strong>Job Title: </strong>
-          {props.title}
+
+        <div className='description'>
+          <Box sx={{ p: 1 }}>
+            <Typography variant='body2' color='text.primary'>
+              {toggleDescription(description)}
+            </Typography>
+          </Box>
         </div>
-        <div className='cardInfo'>
-          <strong>Job Posting: </strong>
-          {props.url}{' '}
+      </CardContent>
+      <CardContent>
+        <ProgressBar progress={progress} />
+        <div className='cardInfo-buttons'>
+          {editComponent()}
+          <Button
+            variant='outlined'
+            onClick={() => {
+              remove();
+            }}
+          >
+            Delete
+          </Button>
         </div>
-        <ProgressBar progress={props.progress} />
-      </div>
-      <div className='cardInfo-buttons'>
-        {editComponent()}
-        <Button
-          variant='outlined'
-          onClick={() => {
-            remove();
-          }}
-        >
-          Delete
-        </Button>
-      </div>
+      </CardContent>
     </Card>
-    //  <div class="col s12 m7">
-    //     <h2 class="header">Horizontal Card</h2>
-    //     <div class="card horizontal">
-    //     <div class="card-image">
-    //         <img src="https://lorempixel.com/100/190/nature/6">
-    //     </div>
-    //     <div class="card-stacked">
-    //         <div class="card-content">
-    //         <p>I am a very simple card. I am good at containing small bits of information.</p>
-    //         </div>
-    //         <div class="card-action">
-    //         <a href="#">This is a link</a>
-    //         </div>
-    //     </div>
-    //     </div>
-    // </div>
   );
 }
 
