@@ -113,7 +113,6 @@ export default function SignIn() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
               //   onClick={login}
-              variant='contained'
             >
               Sign In
             </Button>
