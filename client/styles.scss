@@ -17,22 +17,14 @@
 html {
   font-family: 'Roboto', sans-serif;
 }
+body {
+  margin: 0;
+  padding: 0;
+}
 
 .application {
   margin: auto;
   width: 50%;
-}
-
-#companyName {
-}
-
-#title {
-}
-
-#job {
-}
-
-#jobCard {
 }
 
 #cardApplication {
@@ -52,7 +44,7 @@ html {
 }
 .cardInfo-buttons {
   display: flex;
-  flex: 2;
+
   justify-content: flex-end;
   align-items: flex-end;
 
@@ -60,3 +52,9 @@ html {
     margin: 5px;
   }
 }
+// .job-card {
+//   display: flex;
+//   width: 900px;
+//   margin: 20px auto;
+//   justify-content: space-between;
+// }
