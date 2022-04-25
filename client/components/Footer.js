@@ -11,7 +11,6 @@ function Footer() {
       sx={{ mt: 15, mb: 4 }}
     >
       {'Copyright © '}
-      {/* <Link color='inherit' to='#'> */}
       <a
         href='https://github.com/Team-Wunderpuss-2-0/Wunderpuss'
         style={{ textDecoration: 'none' }}
@@ -19,7 +18,6 @@ function Footer() {
       >
         Wunderpus{' '}
       </a>
-      {/* </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
