@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GoogleLogin from 'react-google-login';
+import { connect } from 'react-redux';
+import { clientLogin } from '../actions/actions';
 
 function Copyright(props) {
   return (
@@ -34,7 +36,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+function SignIn(props) {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [username, setUsername] = useState('');
@@ -50,6 +52,7 @@ export default function SignIn() {
       password,
     })
       .then((data) => {
+        props.clientLogin();
         localStorage.setItem('userId', data.data);
         navigate('/dashboard');
       })
@@ -69,6 +72,7 @@ export default function SignIn() {
     })
       .then((data) => {
         console.log('response google promise chain');
+        props.clientLogin();
         localStorage.setItem('userId', data.data);
         navigate('/dashboard');
       })
@@ -164,3 +168,10 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+const mapStateToProps = ({ loginStatus }) => {
+  console.log(loginStatus);
+  return loginStatus;
+};
+
+export default connect(mapStateToProps, { clientLogin })(SignIn);
