@@ -13,6 +13,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { connect } from 'react-redux';
+import { clientLogin } from '../actions/actions';
 
 function Copyright(props) {
   return (
@@ -34,7 +36,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+function SignIn(props) {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [username, setUsername] = useState('');
@@ -47,6 +49,7 @@ export default function SignIn() {
       password,
     })
       .then((data) => {
+        props.clientLogin();
         localStorage.setItem('userId', data.data);
         navigate('/dashboard');
       })
@@ -113,7 +116,6 @@ export default function SignIn() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
               //   onClick={login}
-              variant='contained'
             >
               Sign In
             </Button>
@@ -136,3 +138,9 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+const mapStateToProps = ({ loginStatus }) => {
+  console.log(loginStatus);
+  return loginStatus;
+};
+
+export default connect(mapStateToProps, { clientLogin })(SignIn);
