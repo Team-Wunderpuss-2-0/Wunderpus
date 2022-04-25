@@ -11,6 +11,17 @@ function Dashboard(){
         .then((data)=> data.json())
         .then(res=> setApplications(res))
    }, [])
+   const deleteApplication = (appId) => {
+    fetch(`/api/application/${appId}`, {
+      method: 'DELETE',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data', data);
+        getApplications();
+      })
+      .catch((err) => console.log(err));
+  };
 
   const updateProgress = (appId, data) => {
     fetch(`/api/application/${appId}`, {

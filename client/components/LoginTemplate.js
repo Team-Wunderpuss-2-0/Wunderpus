@@ -48,6 +48,7 @@ export default function SignIn() {
     })
       .then((data) => {
         localStorage.setItem('userId', data.data);
+        // console.log('login promise chain')
         navigate('/dashboard');
       })
       .catch((err) => setError(err));
@@ -113,7 +114,6 @@ export default function SignIn() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
               //   onClick={login}
-              variant='contained'
             >
               Sign In
             </Button>
