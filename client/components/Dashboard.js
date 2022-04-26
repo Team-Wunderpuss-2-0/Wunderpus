@@ -7,13 +7,14 @@ import Searching from '../assets/searching.png';
 function Dashboard() {
   const [applications, setApplications] = useState([]);
   const navigate = useNavigate();
+  const userId = localStorage.getItem('userId');
   const getApplications = () => {
-    fetch(`/api/applications/${localStorage.getItem('userId')}`)
+    fetch(`/api/applications/${userId}`)
       .then((data) => data.json())
       .then((res) => setApplications(res));
   };
   useEffect(() => {
-    if (!localStorage.getItem('userId')) {
+    if (!userId) {
       navigate('/');
     }
     getApplications();
@@ -38,7 +39,6 @@ function Dashboard() {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log('data', response);
         getApplications();
       })
       .catch((err) => console.log(err));

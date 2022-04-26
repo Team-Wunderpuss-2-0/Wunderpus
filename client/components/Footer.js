@@ -8,7 +8,7 @@ function Footer() {
       variant='body2'
       color='text.secondary'
       align='center'
-      sx={{ mt: 15, mb: 4 }}
+      sx={{ mt: 15 }}
     >
       {'Copyright © '}
       <a

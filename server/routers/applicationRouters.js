@@ -139,16 +139,6 @@ router.post('/application/:appId', async (req, res, next) => {
       }
     })
     .catch((err) => next(err));
-  //   res.locals.application = appToUpdate;
-  //   return res.status(200).json(res.locals.application);
-  // } catch (err) {
-  //   return next({
-  //     log: 'Error occurred with finding an application. Try again',
-  //     message: {
-  //       err: 'Application id is not found',
-  //     },
-  //   });
-  // }
 });
 
 // deletes an existing application

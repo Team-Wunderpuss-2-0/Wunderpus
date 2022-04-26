@@ -58,17 +58,6 @@ router.post('/oauth', async (req, res, next) => {
   const password = googleId;
 
   try {
-    // check and see if username already exists in the database
-    // if it doesn't
-    // create a new user and set their password to googleId
-    // if it does
-    // check if their password matches what we have in the database
-
-    //create a new user in mongo database and setting their user_id to be the password
-
-    // const check = await User.findOne({ username });
-    // console.log(check);
-    // const user = await User.findOne({username})
     User.findOne({ username }, async (err, user) => {
       if (err) {
         return next({
@@ -77,7 +66,6 @@ router.post('/oauth', async (req, res, next) => {
         });
       } else if (user === null) {
         const newUser = await User.create({ username, password });
-        // console.log(newUser._id);
         res.locals.userId = newUser._id;
         return res.status(200).json(res.locals.userId);
       } else {
@@ -94,8 +82,6 @@ router.post('/oauth', async (req, res, next) => {
         }
       }
     });
-
-    // console.log(user_id);
   } catch (err) {
     return next({
       log: 'Error occurred with google logging in. Try again',
