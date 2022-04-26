@@ -16,24 +16,6 @@ import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
 import { clientLogin } from '../actions/actions';
 
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant='body2'
-//       color='text.secondary'
-//       align='center'
-//       {...props}
-//     >
-//       {'Copyright © '}
-//       <Link color='inherit' href='https://mui.com/'>
-//         Wunderpuss
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
-
 const theme = createTheme();
 
 function SignIn(props) {
@@ -56,22 +38,18 @@ function SignIn(props) {
         localStorage.setItem('userId', data.data);
         navigate('/dashboard');
       })
-      .catch((err) => setError(err));
+      .catch((err) => setError(err.message));
   };
 
   const responseGoogle = (response) => {
-    console.log(response);
-    console.log(response.profileObj);
     const googleId = response.profileObj.googleId;
     const gmail = response.profileObj.email;
-    console.log(gmail);
-    console.log(googleId);
+
     Axios.post('/api/auth/oauth', {
       gmail,
       googleId,
     })
       .then((data) => {
-        console.log('response google promise chain');
         props.clientLogin();
         localStorage.setItem('userId', data.data);
         navigate('/dashboard');
@@ -95,9 +73,7 @@ function SignIn(props) {
             login();
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            {/* <LockOutlinedIcon /> */}
-          </Avatar>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}></Avatar>
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
@@ -129,16 +105,12 @@ function SignIn(props) {
                 setPassword(e.target.value);
               }}
             />
-            {/* <FormControlLabel
-              control={<Checkbox value='remember' color='primary' />}
-              label='Remember me'
-            /> */}
+
             <Button
               type='submit'
               fullWidth
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
-              //   onClick={login}
             >
               Sign In
             </Button>
@@ -163,14 +135,12 @@ function SignIn(props) {
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );
 }
 
 const mapStateToProps = ({ loginStatus }) => {
-  console.log(loginStatus);
   return loginStatus;
 };
 
