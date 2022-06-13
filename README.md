@@ -41,6 +41,6 @@ Wonderful Wunderpus is a web-based platform desgined for anyone who is looking f
 ```
 MONGO_URI = 'YOUR MONGODB URI'
 ```
-4. In the `client/components/LoginTemplate.js` file, replace `javascript const CLIENT_ID = 'YOUR CLIENT_ID'` with your Google OAUTH client id
+4. In the `client/components/LoginTemplate.js` file, replace `const CLIENT_ID = 'YOUR CLIENT_ID'` with your Google OAUTH client id
 5. Run `npm run dev` and go to http://localhost:8080 to open the application
 
