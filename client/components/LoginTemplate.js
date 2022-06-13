@@ -24,8 +24,7 @@ function SignIn(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const CLIENT_ID =
-    '901507829953-n3rc11mkp13gpibjrs355njeqpjdcthd.apps.googleusercontent.com';
+  const CLIENT_ID = 'YOUR CLIENT_ID';
 
   const login = () => {
     console.log(username, password);
